@@ -1,0 +1,30 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+
+# Build
+.build/
+build/
+DerivedData/
+*.xcuserstate
+*.xcworkspace/xcuserdata/
+*.xcodeproj/xcuserdata/
+*.xcodeproj/project.xcworkspace/
+
+# Bundles produced by Scripts/bundle.sh
+Piper.app/
+dist/
+
+# Editor / tools
+.vscode/
+.idea/
+*.swp
+*.swo
+.cache/
+
+# Local overrides — never commit personal paths or tokens
+.env
+.env.local
+Makefile.local

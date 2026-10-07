@@ -1,0 +1,25 @@
+--swiftversion 5.9
+--disable andUse
+
+--indent 4
+--maxwidth 120
+--wraparguments before-first
+--wrapparameters before-first
+--wrapcollections before-first
+--closingparen balanced
+--commas inline
+--trimwhitespace always
+--stripunusedargs closure-only
+--header ignore
+
+--self insert
+--patternlet inline
+
+--enable isEmpty
+--enable redundantType
+--enable sortImports
+--enable blankLinesAtStartOfScope
+--enable blankLinesAtEndOfScope
+--enable markTypes
+
+--exclude .build,build,dist,Piper.app

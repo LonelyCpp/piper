@@ -1,0 +1,61 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build (arm64)
+    runs-on: macos-14
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode_16.2.app
+
+      - name: Swift version
+        run: swift --version
+
+      - name: Build
+        run: swift build
+
+      - name: Assemble bundle
+        run: ./Scripts/bundle.sh debug
+
+      - name: Verify Info.plist invariants
+        run: |
+          set -euo pipefail
+          plist="build/Piper.app/Contents/Info.plist"
+          plutil -lint "$plist"
+          # A menu-bar app with no windows is a candidate for auto-termination
+          # unless these are explicitly false.
+          test "$(plutil -extract LSUIElement raw "$plist")" = "true"
+          test "$(plutil -extract NSSupportsAutomaticTermination raw "$plist")" = "false"
+          test "$(plutil -extract NSSupportsSuddenTermination raw "$plist")" = "false"
+          echo "Info.plist invariants OK"
+
+      - name: Verify signature
+        run: codesign --verify --verbose=1 build/Piper.app
+
+  lint:
+    name: Lint
+    runs-on: macos-14
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode_16.2.app
+
+      - name: swiftlint
+        run: |
+          brew install swiftlint
+          swiftlint lint --strict

@@ -1,0 +1,13 @@
+* text=auto eol=lf
+
+*.swift text diff=swift
+*.plist text
+*.sh text eol=lf
+Makefile text
+
+# Binary
+*.png binary
+*.icns binary
+*.mp3 binary
+*.wav binary
+*.app binary
