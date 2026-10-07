@@ -121,7 +121,30 @@ the same recipe line.
 2. **Escalation sound** — default to sound or silence? Planning assumption:
    sound, since unmissability is the product. Note macOS will respect the system
    volume either way.
-3. **Bundle identifier** — `dev.kanive.piper` is a placeholder. Change it before
-   any signing/distribution work in Phase 6.
+3. **Bundle identifier** — ~~placeholder, change before Phase 6~~
+   **Resolved 2026-10-07: `in.kanive.piper`.** See the entry below.
 
 **Next.** Phase 1 — data model and persistence. Awaiting go-ahead.
+
+---
+
+## 2026-10-07 — Bundle identifier settled
+
+**Decision.** Bundle identifier is `in.kanive.piper`, replacing the
+`dev.kanive.piper` placeholder from Phase 0.
+
+**Changed.** `Resources/Info.plist`. Also corrected the two Phase 0 worklog
+references above, which recorded the old value as fact at the time — the
+`codesign -dv` result line is left as a historical record, but the open
+question is now closed.
+
+**Note.** Reverse-DNS convention is reversed here (`in.kanive.piper` rather than
+the more typical `com.kanive.piper`). It only has to be unique and stable on
+your machine for local ad-hoc signing, so either is fine — but if you ever ship
+this outside the App Store, the identifier needs to match a domain you control.
+Worth a second look in Phase 6.
+
+**Verified.** Rebundled and confirmed `codesign -dv` reports `in.kanive.piper`.
+
+**Next.** Phase 1 — data model and persistence. Still awaiting go-ahead, along
+with open questions 1 (auto-dismiss cap) and 2 (escalation sound).

@@ -9,7 +9,7 @@
 	<key>CFBundleExecutable</key>
 	<string>Piper</string>
 	<key>CFBundleIdentifier</key>
-	<string>dev.kanive.piper</string>
+	<string>in.kanive.piper</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
